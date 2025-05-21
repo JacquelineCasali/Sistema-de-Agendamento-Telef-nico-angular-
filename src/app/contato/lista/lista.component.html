@@ -1,0 +1,89 @@
+<div class="topo-titulo">
+  <h2>Contatos</h2>
+  <input
+    type="text"
+    placeholder="Filtrar por nome ou Número do Celular"
+    [(ngModel)]="filtro"
+    (ngModelChange)="aplicarFiltro()"
+    name="filtro"
+  />
+  <button class="cadastrar" (click)="cadastrar()">➕ Cadastrar Contato</button>
+</div>
+
+<div class="container">
+  <div class="row" *ngIf="contatosPaginadas.length > 0">
+
+    <div
+      class="col-md-6 col-lg-4 mb-4"
+      *ngFor="let contato of contatosPaginadas"
+    >
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5
+            class="card-title d-flex justify-content-between align-items-center"
+          >
+            {{ capitalizarNome(contato.contatoNome) }}
+            <span
+              class="favorito"
+              (click)="alternarFavorito(contato)"
+              style="cursor: pointer; font-size: 20px"
+              [title]="
+                contato.contatoSnFavorito
+                  ? 'Remover dos favoritos'
+                  : 'Marcar como favorito'
+              "
+            >
+              {{ contato.contatoSnFavorito ? "⭐" : "☆" }}
+            </span>
+          </h5>
+          <div class="card-text d-flex flex-column">
+            <p class="mb-0"><strong>Email:</strong> {{ contato.contatoEmail }}</p>
+           <p class="mb-0">
+              <strong>Celular:</strong
+              >{{ formatarContatoCelular(contato.contatoCelular) }}
+            </p>
+
+          <p class="mb-0">
+              <strong>Telefone:</strong>
+              {{ formatarContatoTeleFone(contato.contatoTelefone) }}
+            </p>
+           <p class="mb-0">
+              <strong>Data de Cadastro:</strong
+              >{{ formatarData(contato.contatoDhCad) }}
+            </p>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center mb-2">
+          <button class="btn visualizar" (click)="visualizar(contato)">
+            👁️
+          </button>
+          <button class="btn editar" (click)="editar(contato)">✏️</button>
+          <button class="btn excluir" (click)="deletar(contato)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="contatosPaginadas.length === 0" class="sem-registros">
+    Nenhum contato encontrado.
+  </div>
+</div>
+
+<div *ngIf="contatosPaginadas.length > 0">
+  <div class="pagination">
+    <button (click)="anteriorPagina()" [disabled]="paginaAtual === 1">
+      Anterior
+    </button>
+
+    <button
+      *ngFor="let pagina of paginas"
+      (click)="irParaPagina(pagina)"
+      [class.ativa]="pagina === paginaAtual"
+    >
+      {{ pagina }}
+    </button>
+
+    <button (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">
+      Próxima
+    </button>
+  </div>
+</div>

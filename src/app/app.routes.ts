@@ -1,24 +1,20 @@
 import {  Routes } from '@angular/router';
-import { ListaComponent } from './empresa/lista/lista.component';
+import { ListaComponent } from './contato/lista/lista.component';
 
-import { CadastrarComponent } from './empresa/cadastrar/cadastrar.component';
-import { ListaFornecedorComponent } from './fornecedor/lista/lista.component';
-import { EmpresaDetalheComponent } from './empresa/detalhe/empresa-detalhe.component';
-import { CadastrarFornecedorComponent } from './fornecedor/cadastrar/cadastrar.component';
+// import { CadastrarComponent } from './contato/cadastrar/cadastrar.component';
+// import { ContatoDetalheComponent } from './contato/detalhe/contato-detalhe.component';
 
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: 'empresas', pathMatch: 'full' },
-    { path: 'empresas', component: ListaComponent },
+    { path: '', redirectTo: 'contatos', pathMatch: 'full' },
+    { path: 'contatos', component: ListaComponent },
 
-    { path: 'empresas/editar/:id', component: CadastrarComponent } ,
-    { path: 'empresas/cadastrar', component: CadastrarComponent },
-    { path: 'empresas/:id', component: EmpresaDetalheComponent },
+    // { path: 'contatos/editar/:id', component: CadastrarComponent } ,
+    // { path: 'contatos/cadastrar', component: CadastrarComponent },
+    // { path: 'contatos/:id', component: ContatoDetalheComponent },
 
-    { path: 'fornecedores', component: ListaFornecedorComponent },
-    { path: 'fornecedores/cadastrar', component: CadastrarFornecedorComponent },
-    { path: 'fornecedores/editar/:id', component: CadastrarFornecedorComponent },
+
 ];
 
 

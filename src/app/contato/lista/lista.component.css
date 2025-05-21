@@ -1,0 +1,169 @@
+/* Espaço em volta da tabela */
+.topo-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 30px   ;
+}
+.topo-titulo h2 {
+  margin: 0;
+}
+.topo-titulo input {
+  padding: 8px 12px;
+  font-size: 16px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.cadastrar {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.cadastrar:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* Botões de ação */
+.btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.visualizar {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.editar {
+  background-color: #ffc107;
+  color: white;
+}
+
+.excluir {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex; /* SEMPRE flex, o Angular controla o *ngIf */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+}
+
+
+.modal-conteudo {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.modal-conteudo ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+  margin-top: 10px;
+}
+
+.modal-conteudo ul li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fechar {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+.sem-registros {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  padding: 16px;
+  font-size: 20px;
+  
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+  justify-content: center;
+ 
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button.ativa {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+ 
+  .modal-conteudo {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .topo-titulo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cadastrar {
+    margin-top: 10px;
+  }
+}

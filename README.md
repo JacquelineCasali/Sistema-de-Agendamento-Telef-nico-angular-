@@ -1,15 +1,9 @@
-## Desafio Full-Stack (Spring Boot + Angular)
+## Projeto  Full-Stack (Spring Boot + Angular)
 
-Este projeto é uma aplicação Full-Stack desenvolvida utilizando Spring Boot no back-end e Angular no front-end. O sistema permite a gestão de empresas e fornecedores, garantindo regras de negócio como validação de CPF/CNPJ, restrição de idade para fornecedores pessoa física no Paraná e integração com API de CEP.
+Sistema Full Stack desenvolvido para cadastro, consulta, edição, inativação e marcação de contatos como favoritos. 
+Utiliza Java com Spring Boot no backend, Angular no frontend, e PostgreSQL como banco de dados relacional.
 
-
-## Video do Projeto 
-
-
-
-https://github.com/user-attachments/assets/406c7a83-d9b3-4543-b9ba-952e7cd5b853
-
-
+## 🎥Vídeo do projeto
 
 
 ## 🚀 Tecnologias Utilizadas
@@ -19,54 +13,52 @@ https://github.com/user-attachments/assets/406c7a83-d9b3-4543-b9ba-952e7cd5b853
 - **[Spring Boot(Spring Web, Spring Data JPA, Validation)]**
 - **[Hibernate (ORM para interação com banco de dados) ]**
 - **[Maven]**
-- **[mysql (Banco de dados relacional)]**
+- **[PostgreSQL (Banco de dados relacional)]**
 - **[Lombok (Redução de código boilerplate)]**
 - **[Postman]**
 - **[springdoc (Documentação da API)]**
 - **[cors]**
+- **[JUnit / Mockito (para testes)]**
 
 ## Frontend:
 
 - Angular (Framework front-end)
 - TypeScript
-- css
+- Bootstrap (Para estilização)
+- Angular Guards (para proteção de rotas)
+- Jasmine / Karma (para testes)
 
 ## ⚙️ Funcionalidades
 
-✅Cadastro de Empresas (com nome, CNPJ, CEP, e-mail)
+✅Cadastro de Contatos (validação de duplicidade por número de celular, nome do contato, email)
 
-✅Cadastro de Fornecedores (pessoa física e jurídica)
+✅Consulta de contatos (ativos)
 
 ✅Validações:
 
-✅CPF/CNPJ
+✅Atualização de contatos
 
-✅Idade mínima para fornecedores pessoa física no Paraná
+✅Inativação de contatos
 
-✅RG e Data de Nascimento obrigatórios para pessoa física
+✅Marcar e desmarcar como favorito
 
-✅Integração com API de CEP para busca de endereços
-
-✅Listagem e Filtros por Nome e CPF/CNPJ
-
-✅Edição e Exclusão de empresas e fornecedores
 
 ## 🚀 Como Rodar o Projeto
 
 📌 1. Configuração do Banco de Dados
 
-Certifique-se de que você tem o MySQL instalado e crie um banco de dados:
+Certifique-se de que você tem o PostgreSQL instalado e crie um banco de dados:
 CREATE DATABASE desafio_fullstack;
 
 📌 2. Configurar o application.properties
 
 No diretório src/main/resources/application.properties, configure a conexão com o banco:
 
-- spring.datasource.url=jdbc:mysql://localhost:3306/desafio_fullstack
-- spring.datasource.username=root
-- spring.datasource.password=senha
+- spring.datasource.url=jdbc:postgresql://localhost:5432/desafio_fullstack
+- spring.datasource.username=seu_usuario
+- spring.datasource.password=sua_senha
 - spring.jpa.hibernate.ddl-auto=update
- 
+
 📌 3. Rodar o Backend (Spring Boot)
 - ./mvnw spring-boot:run
 
@@ -76,7 +68,7 @@ Execute o seguinte comando na raiz do projeto backend:
 Pré-requisitos: Java 17
 
 # clonar repositório
-git clone https://github.com/JacquelineCasali/Teste-de-Sistema-de-gestao.git
+git clone https://github.com/JacquelineCasali/Sistema-de-Agendamento-Telefonico-java.git
 
 # executar o projeto
 ./mvnw spring-boot:run
@@ -90,9 +82,9 @@ Entre na pasta do frontend e execute:
 - npm install  # Instalar dependências
 - ng serve     # Rodar o projeto
   O frontend estará acessível em: http://localhost:4200
-- 
+-
 # clonar repositório
-git clone https://github.com/JacquelineCasali/Teste-de-Sistema-de-gestao-angular.git
+git clone https://github.com/JacquelineCasali/Sistema-de-Agendamento-Telef-nico-angular-.git
 
 📖 Documentação da API
 
