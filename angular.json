@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "desafio-fullstack": {
+    "Sistema-Cadastro-Telefonico": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/desafio-fullstack",
+            "outputPath": "dist/Sistema-Cadastro-Telefonico",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -61,7 +61,7 @@
               "buildTarget": "desafio-fullstack:build:production"
             },
             "development": {
-              "buildTarget": "desafio-fullstack:build:development"
+              "buildTarget": "Sistema-Cadastro-Telefonico:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "desafio-fullstack:build"
+            "buildTarget": "Sistema-Cadastro-Telefonico:build"
           }
         },
         "test": {

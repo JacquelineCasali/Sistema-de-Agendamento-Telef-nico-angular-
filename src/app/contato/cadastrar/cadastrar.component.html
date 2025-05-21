@@ -1,56 +1,45 @@
-<!-- <h2>{{ editando ? 'Editar Contato' : 'Cadastrar Contato' }}</h2>
+<h2>{{ editando ? 'Editar Contato' : 'Cadastrar Contato' }}</h2>
 
 <form  #form="ngForm" (ngSubmit)="cadastrar()">
-    <label>CNPJ:</label>
+    <label>Nome do Contato:</label>
     <input type="text"
-     [(ngModel)]="empresa.cnpj" name="cnpj" required />
+     [(ngModel)]="contato.contatoNome" name="contatoNome" required />
+   <div *ngIf="form.submitted && !contato.contatoNome" class="erro">
+    Nome é obrigatório.
+  </div>
   
-    <label>Nome Fantasia:</label>
-    <input type="text" [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia" required />
+  <label>E-mail:</label>
+  <input
+    [(ngModel)]="contato.contatoEmail"
+    name="email"
+    placeholder="tests@test.com"
+    required
+    type="email"
+  />
+   <div *ngIf="form.submitted && !contato.contatoEmail" class="erro">
+    Email é obrigatório.
+  </div>
+
+   <label>Celular:</label>
+  <input
+    [(ngModel)]="contato.contatoCelular"
+    mask="(00)00000-0000"
+    name="cep"
+    (blur)="formatarContatoCelular(contato.contatoCelular)"
+    placeholder="(00)00000-0000"
+  />
   
-    <label>CEP:</label>
-    <input type="text"
-     [(ngModel)]="empresa.cep" 
-     (blur)="buscarEnderecoPorCep(empresa.cep)"
-     name="cep"
-     placeholder="00000-000"
-      required />
-  
-      <div *ngIf="cidadeUfVisivel" class="cidade-uf-container">
-        <div class="input-group">
-          <label>Cidade:</label>
-          <input [(ngModel)]="empresa.cidade" name="cidade" placeholder="Cidade" readonly />
-        </div>
-      
-        <div class="input-group">
-          <label>Estado:</label>
-          <input [(ngModel)]="empresa.uf"
-          id="uf"
-          name="uf" placeholder="UF" readonly />
-        </div>
-      </div>
-    
-      <label>Associe um Fornecedor:</label>
-      <div class="link">
-      <div *ngFor="let fornecedor of fornecedores" class="empresa-checkbox">
-        <label  >
-          <input
-         style="width: 20px;"
-            type="checkbox"
-            [checked]="empresa.fornecedorIds.includes(fornecedor.id)"
-            [value]="fornecedor.id"
-            (change)="toggleFornecedor(fornecedor.id, $event)" />
-          <p style="margin: 0;">{{fornecedor.cpfCnpj}} </p>
-        </label>
-          <p style=" margin: 0 25px ;">
-            ({{ fornecedor.estado }})
-          </p> 
-      
-      </div>
-      </div>
-  <a [routerLink]="['/fornecedores/cadastrar']" >Cadastrar Novo Fornecedor</a>  
+   <label>Telefone:</label>
+  <input
+    [(ngModel)]="contato.contatoTelefone"
+    mask="(00)00000-0000"
+    name="cep"
+    (blur)="formatarContatoTeleFone(contato.contatoTelefone)"
+    placeholder="(00)00000-0000"
+  />
+
   
     <button type="submit">Salvar</button>
   
     <button type="button" class="voltar" (click)="voltar()">🔙 Voltar</button>
-</form> -->
+</form>

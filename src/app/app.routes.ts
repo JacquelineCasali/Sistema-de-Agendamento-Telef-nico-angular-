@@ -1,8 +1,8 @@
 import {  Routes } from '@angular/router';
 import { ListaComponent } from './contato/lista/lista.component';
 
-// import { CadastrarComponent } from './contato/cadastrar/cadastrar.component';
-// import { ContatoDetalheComponent } from './contato/detalhe/contato-detalhe.component';
+import { CadastrarComponent } from './contato/cadastrar/cadastrar.component';
+import { ContatoDetalheComponent } from './contato/detalhe/contato-detalhe.component';
 
 
 export const routes: Routes = [
@@ -10,9 +10,9 @@ export const routes: Routes = [
     { path: '', redirectTo: 'contatos', pathMatch: 'full' },
     { path: 'contatos', component: ListaComponent },
 
-    // { path: 'contatos/editar/:id', component: CadastrarComponent } ,
-    // { path: 'contatos/cadastrar', component: CadastrarComponent },
-    // { path: 'contatos/:id', component: ContatoDetalheComponent },
+    { path: 'contatos/editar/:id', component: CadastrarComponent } ,
+    { path: 'contatos/cadastrar', component: CadastrarComponent },
+    { path: 'contatos/:id', component: ContatoDetalheComponent },
 
 
 ];

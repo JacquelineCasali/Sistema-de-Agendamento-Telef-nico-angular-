@@ -94,31 +94,31 @@ export class ListaComponent implements OnInit {
   }
 
   cadastrar() {
-    this.router.navigate(['/cadastrar']);
+    this.router.navigate(['contatos/cadastrar']);
   }
 
   editar(contato: any) {
-    this.router.navigate(['/editar', contato.id]);
+    this.router.navigate(['contatos/editar', contato.contatoId]);
   }
 
   visualizar(contato: any) {
-    this.router.navigate(['/', contato.id]);
+    this.router.navigate(['/contatos', contato.contatoId]);
   }
 
   deletar(contato: any) {
     if (
       confirm(
-        `Tem certeza que deseja excluir a empresa ${contato.contatoNome}?`
+        `Tem certeza que deseja excluir o contato ${contato.contatoNome}?`
       )
     ) {
-      this.contatoService.deletar(contato.id).subscribe({
+      this.contatoService.deletar(contato.contatoId).subscribe({
         next: () => {
-          this.contatos = this.contatos.filter((e) => e.id !== contato.id);
+          this.contatos = this.contatos.filter((e) => e.contatoId !== contato.contatoId);
           this.aplicarFiltro();
         },
         error: (error) => {
-          console.error('Erro ao excluir empresa:', error);
-          alert(`Erro ao excluir empresa: ${error.message || error}`);
+          console.error('Erro ao excluir contato:', error);
+          alert(`Erro ao excluir o contato: ${error.message || error}`);
         },
       });
     }
@@ -164,10 +164,5 @@ alternarFavorito(contato: any): void {
       formatarContatoTeleFone(contatoTelefone:string): string {
     return formatarContatoTeleFone(contatoTelefone); // Chama a função importada
   }
-  // formatarRg(rg: string): string {
-  //   return formatarRg(rg);
-  // }
-  // ehPessoaJuridica(cpfCnpj: string): boolean {
-  //   return cpfCnpj?.replace(/\D/g, '').length === 14;
-  // }
+
 }

@@ -1,134 +1,139 @@
-// import { CommonModule } from '@angular/common';
-// import { Component, OnInit } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { ContatoService } from '../../services/contato.service';
-// import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ContatoService } from '../../services/contato.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
-// import { HttpClient } from '@angular/common/http';
-// import { NgxMaskDirective } from 'ngx-mask';
+import { HttpClient } from '@angular/common/http';
+import { NgxMaskDirective } from 'ngx-mask';
+import { capitalizarNome,formatarContatoCelular,formatarContatoTeleFone } from '../../shared/utils/utils';
 
-// @Component({
-//   selector: 'app-cadastrar',
-//   standalone: true,
-//   imports: [CommonModule, FormsModule, RouterModule,
-//     NgxMaskDirective],
-//   templateUrl: './cadastrar.component.html',
-//   styleUrl: './cadastrar.component.css'
-// })
-// export class CadastrarComponent implements OnInit {
-//   contato = {
-//     contatoNome: '',
-//     contatoEmail: '',
-//     contatoCelular: '',
-//     contatoTelefone: '',
-//     contatoSnFavorito: '',
-//     contatoSnAtivo:'',
-//       contatoDhCad: Date
+@Component({
+  selector: 'app-cadastrar',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule,
+    NgxMaskDirective],
+  templateUrl: './cadastrar.component.html',
+  styleUrl: './cadastrar.component.css'
+})
+export class CadastrarComponent implements OnInit {
+  contato = {
+    contatoNome: '',
+    contatoEmail: '',
+    contatoCelular: '',
+    contatoTelefone: '',
+   contatoSnFavorito: 'N',
+  contatoSnAtivo: 'S',
+      // contatoDhCad: Date
     
-//   };
-//   mensagemErro: string = '';
-//   editando: boolean = false;
- 
-//   constructor(private contatoService: ContatoService, 
+  };
+  mensagemErro: string = '';
+  editando: boolean = false;
+ contatoId: number | null = null;
+  constructor(private contatoService: ContatoService, 
 
-//     private router: Router,
-//     private route: ActivatedRoute,
-//   private http: HttpClient) {}
+    private router: Router,
+    private route: ActivatedRoute,
+  private http: HttpClient) {}
 
 
-//   ngOnInit(): void {
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+if(id){
+  this.editando=true;
+  this.contatoId=+id;
+  this.carregarContato(this.contatoId);
+}
+    })
+  }
+    voltar() {
+      this.router.navigate(['/contatos']);
+    }
+
+
+
   
-//     }
-//   }
-//     voltar() {
-//       this.router.navigate(['/']);
-//     }
-
-
-
   
-  
-//   carregarEmpresa(id: number) {
-//     this.empresaService.getEmpresaById(id).subscribe({
-//       next: (data) => {
-//         console.log(data); // Verifique a resposta da API aqui
-//         this. empresa = {          
-//           cnpj: this.formatarCnpj(data.cnpj),
-//           nomeFantasia:data.nomeFantasia,
-//           cep:this.formatarCep(data.cep) ,
-//           cidade:data.cidade,
-//           uf: data.estado,
-//           fornecedorIds: data.fornecedores.map((e: any) => e.id)
+  carregarContato(id: number) {
+    this.contatoService.getContatoById(id).subscribe({
+      next: (data) => {
+        console.log(data); // Verifique a resposta da API aqui
+        this.contato = {          
+          contatoNome:this.capitalizarNome(data.contatoNome),
+         contatoEmail:data.contatoEmail,
+         contatoCelular:this.formatarContatoCelular(data.contatoCelular),
+         contatoTelefone:this.formatarContatoTeleFone(data.contatoTelefone),
+          contatoSnFavorito: data.contatoSnFavorito || 'N',
+        contatoSnAtivo: data.contatoSnAtivo || 'S'
+      
                
-//         };
-//         this.cidadeUfVisivel = true;
-//       },
-//       error: () => {
-//         alert('Erro ao carregar fornecedor para edição.');
-//         this.router.navigate(['/empresas']);
-//       }
-//     });
-//   }
-//   cadastrar(): void {
-//     this.mensagemErro = '';
+        };
+          },
+      error: () => {
+        alert('Erro ao carregar fornecedor para edição.');
+        this.router.navigate(['/']);
+      }
+    });
+  }
+  cadastrar(): void {
+    this.mensagemErro = '';
    
    
-//     const requisicao = this.editando && this.empresaId
-//     ? this.empresaService.atualizarEmpresa(this.empresaId, this.empresa)
-//     : this.empresaService.criarEmpresa(this.empresa);
+    const requisicao = this.editando && this.contatoId
+    ? this.contatoService.atualizarContato(this.contatoId, this.contato)
+    : this.contatoService.criaContato(this.contato);
 
-//     requisicao.subscribe({
-//       next: () => {
-//         //  alert(`Fornecedor ${this.editando ? 'atualizado' : 'cadastrado'} com sucesso!`);
-//           this.router.navigate(['/empresas']);
-//         },
-//         error: (erro) => {
-//           console.error(`Erro ao ${this.editando ? 'atualizar' : 'cadastrar'} fornecedor:`, erro);
+    requisicao.subscribe({
+      next: () => {
+        //  alert(`Fornecedor ${this.editando ? 'atualizado' : 'cadastrado'} com sucesso!`);
+          this.router.navigate(['/']);
+        },
+        error: (erro) => {
+          console.error(`Erro ao ${this.editando ? 'atualizar' : 'cadastrar'} `, erro);
         
-//           const mensagens: string[] = [];
+          const mensagens: string[] = [];
         
-//           const erroOriginal = erro.error;
+          const erroOriginal = erro.error;
         
-//           if (erroOriginal) {
-//             if (typeof erroOriginal === 'string') {
-//               mensagens.push(erroOriginal);
-//             } else if (erroOriginal.erro) {
-//               mensagens.push(erroOriginal.erro); // 👈 pega exatamente esse caso
-//             } else if (erroOriginal.message) {
-//               mensagens.push(erroOriginal.message);
-//             } else if (Array.isArray(erroOriginal)) {
-//               mensagens.push(...erroOriginal);
-//             } else {
-//               Object.values(erroOriginal).forEach(msg => {
-//                 if (Array.isArray(msg)) {
-//                   mensagens.push(...msg);
-//                 } else {
-//                   mensagens.push(String(msg));
-//                 }
-//               });
-//             }
-//           } else {
-//             mensagens.push('Erro ao conectar com o servidor.');
-//           }
+          if (erroOriginal) {
+            if (typeof erroOriginal === 'string') {
+              mensagens.push(erroOriginal);
+            } else if (erroOriginal.erro) {
+              mensagens.push(erroOriginal.erro); // 👈 pega exatamente esse caso
+            } else if (erroOriginal.message) {
+              mensagens.push(erroOriginal.message);
+            } else if (Array.isArray(erroOriginal)) {
+              mensagens.push(...erroOriginal);
+            } else {
+              Object.values(erroOriginal).forEach(msg => {
+                if (Array.isArray(msg)) {
+                  mensagens.push(...msg);
+                } else {
+                  mensagens.push(String(msg));
+                }
+              });
+            }
+          } else {
+            mensagens.push('Erro ao conectar com o servidor.');
+          }
         
-//           alert(mensagens.join('\n'));
-//         }
+          alert(mensagens.join('\n'));
+        }
       
         
-//       });
-//     }
-    
-
-//   formatarCep(cep: string): string {
-//     if (!cep) return ''; // Retorna uma string vazia se o CEP for nulo ou indefinido
-//     const num = cep.replace(/\D/g, '');
-//     return num.length === 8 ? num.replace(/(\d{5})(\d{3})/, '$1-$2') : cep;
-//   }
-//   formatarCnpj(cnpj: string): string {
-//     if (!cnpj) return ''; // Retorna uma string vazia se o CNPJ for nulo ou indefinido
-//     const num = cnpj.replace(/\D/g, '');
-//     return num.length === 14
-//       ? num.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
-//       : cnpj;
-//   }
-// }
+      });
+    }
+      formatarData(contatoDhCad: string): string {
+    return new Date(contatoDhCad).toLocaleDateString('pt-BR');
+  }
+ capitalizarNome(contatoNome: string): string {
+    return capitalizarNome(contatoNome); // Chama a função importada
+  }
+    formatarContatoCelular(contatoCelular: string): string {
+    return formatarContatoCelular(contatoCelular); // Chama a função importada
+  }
+      formatarContatoTeleFone(contatoTelefone:string): string {
+    return formatarContatoTeleFone(contatoTelefone); // Chama a função importada
+  }
+}

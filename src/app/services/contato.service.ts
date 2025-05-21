@@ -17,27 +17,27 @@ export class ContatoService {
   getContatos(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
-  getContatosPorId(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getContatosPorId(contatoId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${contatoId}`);
   }
  
 
-  getContatoById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getContatoById(contatoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${contatoId}`);
   }
   criaContato(contato: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, contato);
   }
 
-  atualizarContato(id:number, contato: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, contato);
+  atualizarContato(contatoId:number, contato: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${contatoId}`, contato);
   }
 
 // favorito(contatoId: number, contato: any): Observable<any> {
 //   return this.http.patch(`${this.apiUrl}/${contatoId}/favorito`, contato);
 // }
-  deletar(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, { responseType: 'text' });
+  deletar(contatoId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${contatoId}`, { responseType: 'text' });
   }
  
 }
