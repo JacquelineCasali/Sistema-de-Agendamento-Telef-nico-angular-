@@ -1,5 +1,8 @@
+<div class="titulo">
 <h2>{{ editando ? 'Editar Contato' : 'Cadastrar Contato' }}</h2>
+  <button type="button" class="voltar" (click)="voltar()">🔙 Voltar</button>
 
+</div>
 <form  #form="ngForm" (ngSubmit)="cadastrar()">
     <label>Nome do Contato:</label>
     <input type="text"
@@ -41,5 +44,5 @@
   
     <button type="submit">Salvar</button>
   
-    <button type="button" class="voltar" (click)="voltar()">🔙 Voltar</button>
+  
 </form>

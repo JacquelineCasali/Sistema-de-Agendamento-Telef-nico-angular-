@@ -20,6 +20,7 @@ export class ListaComponent implements OnInit {
   itensPorPagina = 6;
   totalPaginas = 1;
   filtro: string = '';
+    contatoSelecionado: any = null;
   modalAberto = false;
   constructor(private contatoService: ContatoService, private router: Router) {}
 
@@ -29,10 +30,9 @@ export class ListaComponent implements OnInit {
       this.contatos = data.sort((a, b) =>
         a.contatoNome.localeCompare(b.contatoNome)
       );
- 
-
       this.aplicarFiltro();
     });
+    
   }
 
   aplicarFiltro(): void {
@@ -101,8 +101,14 @@ export class ListaComponent implements OnInit {
     this.router.navigate(['contatos/editar', contato.contatoId]);
   }
 
-  visualizar(contato: any) {
-    this.router.navigate(['/contatos', contato.contatoId]);
+  abrirModal(contato: any) {
+       this.contatoSelecionado = contato;
+     document.body.classList.add('modal-aberto');
+  }
+ fecharModal() {
+   
+    this.contatoSelecionado = null;
+    document.body.classList.remove('modal-aberto');
   }
 
   deletar(contato: any) {

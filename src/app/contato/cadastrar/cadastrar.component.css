@@ -1,3 +1,9 @@
+.titulo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 h2{
     display: flex;
     justify-content: center;
@@ -105,22 +111,7 @@ input.preenchido {
     text-decoration: underline;
   }
   
-  .empresa-checkbox {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  .empresa-checkbox label {
-    display: flex;
-    align-items: center;
-    /* gap: 0.5rem; */
-    cursor: pointer;
-  }
-  .empresa-checkbox input[type="checkbox"] {
-    accent-color: #1976d2; /* opcional: cor do checkbox no Chrome/Edge */
-    transform: scale(1.1);  /* opcional: aumenta visualmente o checkbox */
-  }
+ 
   /* Responsividade */
 @media (max-width: 600px) {
   form {
