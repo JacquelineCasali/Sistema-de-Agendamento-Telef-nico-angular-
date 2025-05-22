@@ -62,7 +62,7 @@ export class ListaComponent implements OnInit {
    
    // favoritar e desvaforitar
     this.contatosFavoritos = contatosFiltradas.filter(c => c.contatoSnFavorito === 'S');
-  this.contatosFiltradas = contatosFiltradas.filter(c => c.contatoSnFavorito === 'N');
+  this.contatosFiltradas = contatosFiltradas.filter(c => c.contatoSnFavorito !== 'S');
   
     this.totalPaginas = Math.ceil(
       this.contatosFiltradas.length / this.itensPorPagina
