@@ -33,9 +33,9 @@ export class ContatoService {
     return this.http.put<any>(`${this.apiUrl}/${contatoId}`, contato);
   }
 
-// favorito(contatoId: number, contato: any): Observable<any> {
-//   return this.http.patch(`${this.apiUrl}/${contatoId}/favorito`, contato);
-// }
+favorito(contatoId: number): Observable<any> {
+  return this.http.patch(`${this.apiUrl}/${contatoId}/favorito`, {});
+}
   deletar(contatoId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${contatoId}`, { responseType: 'text' });
   }

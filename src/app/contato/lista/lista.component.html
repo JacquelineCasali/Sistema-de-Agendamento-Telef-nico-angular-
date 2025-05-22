@@ -11,6 +11,80 @@
 </div>
 
 <div class="container">
+  <!-- FAVORITOS -->
+  <h4 class="mt-3 " *ngIf="contatosFavoritos.length > 0">⭐ Favoritos</h4>
+ 
+     <div class="row">
+    <div
+      class="col-md-6 col-lg-4 mb-4"
+      *ngFor="let contato of contatosFavoritos"
+    >
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5
+            class="card-title d-flex justify-content-between align-items-center"
+          >
+            {{ capitalizarNome(contato.contatoNome) }}
+            <span
+              class="favorito"
+              (click)="alternarFavorito(contato)"
+              style="cursor: pointer; font-size: 20px"
+              [title]="
+                contato.contatoSnFavorito
+                  ? 'Remover dos favoritos'
+                  : 'Marcar como favorito'
+              "
+            >
+              <i
+                class="bi"
+                [ngClass]="{
+                  'bi-star-fill text-warning':
+                    contato.contatoSnFavorito === 'S',
+                  'bi-star': contato.contatoSnFavorito !== 'S'
+                }"
+              ></i>
+            </span>
+          </h5>
+          <div class="card-text d-flex flex-column">
+            <p class="mb-0">
+              <strong>Email:</strong> {{ contato.contatoEmail }}
+            </p>
+            <p class="mb-0">
+              <strong>Celular:</strong
+              >{{ formatarContatoCelular(contato.contatoCelular) }}
+            </p>
+
+            <p class="mb-0">
+              <strong class="ml-1">Telefone:</strong>
+
+              {{
+                formatarContatoTeleFone(contato?.contatoTelefone)
+                  ? formatarContatoTeleFone(contato?.contatoTelefone)
+                  : "Sem telefone cadastrado"
+              }}
+            </p>
+            <p class="mb-0">
+              <strong>Data de Cadastro:</strong
+              >{{ formatarData(contato.contatoDhCad) }}
+            </p>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center mb-2">
+          <button class="btn visualizar" (click)="abrirModal(contato)">
+            👁️
+          </button>
+          <button class="btn editar" (click)="editar(contato)">✏️</button>
+          <button class="btn excluir" (click)="deletar(contato)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="contatosPaginadas.length === 0" class="sem-registros">
+    Nenhum contato encontrado.
+  </div>
+
+
+   <h4 class="mt-4">📁 Contatos</h4>
   <div class="row" *ngIf="contatosPaginadas.length > 0">
     <div
       class="col-md-6 col-lg-4 mb-4"
@@ -32,12 +106,19 @@
                   : 'Marcar como favorito'
               "
             >
-              {{ contato.contatoSnFavorito ? "⭐" : "☆" }}
+              <i
+                class="bi"
+                [ngClass]="{
+                  'bi-star-fill text-warning':
+                    contato.contatoSnFavorito === 'S',
+                  'bi-star': contato.contatoSnFavorito !== 'S'
+                }"
+              ></i>
             </span>
           </h5>
           <div class="card-text d-flex flex-column">
             <p class="mb-0">
-              <strong >Email:</strong> {{ contato.contatoEmail }}
+              <strong>Email:</strong> {{ contato.contatoEmail }}
             </p>
             <p class="mb-0">
               <strong>Celular:</strong
@@ -46,14 +127,12 @@
 
             <p class="mb-0">
               <strong class="ml-1">Telefone:</strong>
-             
-            {{
-       formatarContatoTeleFone(contato?.contatoTelefone) 
-          ? formatarContatoTeleFone(contato?.contatoTelefone)
-         
-          : "Sem telefone cadastrado"
-         
-      }}
+
+              {{
+                formatarContatoTeleFone(contato?.contatoTelefone)
+                  ? formatarContatoTeleFone(contato?.contatoTelefone)
+                  : "Sem telefone cadastrado"
+              }}
             </p>
             <p class="mb-0">
               <strong>Data de Cadastro:</strong
@@ -80,7 +159,9 @@
   <div class="modal-conteudo">
     <span class="fechar" (click)="fecharModal()">&times;</span>
 
-    <h3 class="card-title d-flex justify-content-between align-items-center mb-3">
+    <h3
+      class="card-title d-flex justify-content-between align-items-center mb-3"
+    >
       🧾 Detalhes do Contato
       <span
         class="favorito mt-3"
@@ -92,7 +173,14 @@
             : 'Marcar como favorito'
         "
       >
-        {{ contatoSelecionado?.contatoSnFavorito ? "⭐" : "☆" }}
+        <i
+          class="bi"
+          [ngClass]="{
+            'bi-star-fill text-warning':
+              contatoSelecionado.contatoSnFavorito === 'S',
+            'bi-star': contatoSelecionado.contatoSnFavorito !== 'S'
+          }"
+        ></i>
       </span>
     </h3>
     <div class="card-text d-flex flex-column">
@@ -101,31 +189,31 @@
         {{ capitalizarNome(contatoSelecionado?.contatoNome) }}
       </p>
       <p class="mb-0">
-       
-        <strong class="ml-1">Email:</strong> {{ contatoSelecionado?.contatoEmail }}</p>
-       <p class="mb-0">
+        <strong class="ml-1">Email:</strong>
+        {{ contatoSelecionado?.contatoEmail }}
+      </p>
+      <p class="mb-0">
         <strong class="ml-1">Celular:</strong>
         {{ formatarContatoCelular(contatoSelecionado?.contatoCelular || "") }}
       </p>
       <p>
         <strong>Telefone:</strong>
 
-            {{
-       formatarContatoTeleFone(contatoSelecionado?.contatoTelefone) 
-          ? formatarContatoTeleFone(contatoSelecionado?.contatoTelefone)
-         
-          : "Sem telefone cadastrado"
-         
-      }}
-      
+        {{
+          formatarContatoTeleFone(contatoSelecionado?.contatoTelefone)
+            ? formatarContatoTeleFone(contatoSelecionado?.contatoTelefone)
+            : "Sem telefone cadastrado"
+        }}
       </p>
     </div>
-       <div class="d-flex flex-row justify-content-center mb-2">
+    <div class="d-flex flex-row justify-content-center mb-2">
       <button class="btn editar" (click)="editar(contatoSelecionado)">
-        ✏️ 
+        ✏️
       </button>
-      <button class="btn cadastrar mt-1" (click)="cadastrar()">➕ </button>
-       <button class="btn excluir" (click)="deletar(contatoSelecionado)">🗑️</button>
+      <button class="btn cadastrar mt-1" (click)="cadastrar()">➕</button>
+      <button class="btn excluir" (click)="deletar(contatoSelecionado)">
+        🗑️
+      </button>
     </div>
   </div>
 </div>

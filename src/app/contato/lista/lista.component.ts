@@ -21,6 +21,7 @@ export class ListaComponent implements OnInit {
   totalPaginas = 1;
   filtro: string = '';
     contatoSelecionado: any = null;
+    contatosFavoritos: any[] = [];
   modalAberto = false;
   constructor(private contatoService: ContatoService, private router: Router) {}
 
@@ -39,7 +40,7 @@ export class ListaComponent implements OnInit {
     const termo = this.filtro.toLowerCase().trim();
     const termoNumerico = this.filtro.replace(/\D/g, '');
 
-    this.contatosFiltradas = this.contatos.filter((e) => {
+    const contatosFiltradas = this.contatos.filter((e) => {
       const nome = (e.contatoNome || '').toLowerCase();
       const celular = (e.contatoCelular || '').replace(/\D/g, '');
 
@@ -58,7 +59,11 @@ export class ListaComponent implements OnInit {
 
     console.log('Filtro atual:', this.filtro);
     console.log('Contatos filtradas:', this.contatosFiltradas.length);
-
+   
+   // favoritar e desvaforitar
+    this.contatosFavoritos = contatosFiltradas.filter(c => c.contatoSnFavorito === 'S');
+  this.contatosFiltradas = contatosFiltradas.filter(c => c.contatoSnFavorito === 'N');
+  
     this.totalPaginas = Math.ceil(
       this.contatosFiltradas.length / this.itensPorPagina
     );
@@ -137,12 +142,13 @@ export class ListaComponent implements OnInit {
   }
 
 alternarFavorito(contato: any): void {
-  const novoValor = !contato.contatoSnFavorito;
+    const novoValor = contato.contatoSnFavorito === 'S' ? 'N' : 'S';
   const contatoAtualizado = { ...contato, contatoSnFavorito: novoValor };
 
   this.contatoService.atualizarContato(contato.contatoId, contatoAtualizado).subscribe({
     next: () => {
       contato.contatoSnFavorito = novoValor;
+       this.aplicarFiltro();
     },
     error: (err) => {
       console.error('Erro ao atualizar favorito:', err);
