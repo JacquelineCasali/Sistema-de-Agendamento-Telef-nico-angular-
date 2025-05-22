@@ -6,6 +6,10 @@ Utiliza Java com Spring Boot no backend, Angular no frontend, e PostgreSQL como 
 ## 🎥Vídeo do projeto
 
 
+https://github.com/user-attachments/assets/fbe14695-9239-4c5c-b0e0-411a6d348770
+
+
+
 ## 🚀 Tecnologias Utilizadas
 
 ## Backend:
